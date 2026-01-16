@@ -1,23 +1,104 @@
 ---
-// src/pages/index.astro
-import Layout from '../layouts/Layout.astro';
+// 静态文章数据
+const posts = [
+  {
+    id: 1,
+    title: "Astro动态博客搭建实战",
+    author: "张玉乔",
+    date: "2026-01-16",
+    comments: 5,
+    category: "技术教程",
+    excerpt: "学习如何使用Astro构建功能完整的个人博客网站，支持用户注册、文章发布、评论管理等动态功能。"
+  },
+  {
+    id: 2,
+    title: "Vercel部署全攻略",
+    author: "张玉乔", 
+    date: "2026-01-15",
+    comments: 3,
+    category: "部署运维",
+    excerpt: "从零开始部署Astro网站到Vercel平台，配置环境变量，实现CI/CD自动部署流程。"
+  },
+  {
+    id: 3,
+    title: "前端开发学习路线图",
+    author: "张玉乔",
+    date: "2026-01-14", 
+    comments: 4,
+    category: "学习心得",
+    excerpt: "系统学习HTML、CSS、JavaScript、React等前端技术的完整路径和方法指导。"
+  }
+];
+
+const stats = {
+  postsCount: 5,
+  categories: 3,
+  commentsCount: 12
+};
 ---
 
-<Layout title="我的网站">
-  <main>
-    <h1>欢迎来到我的网站！</h1>
-    <p>这是我的第一个Astro页面</p>
-  </main>
-</Layout>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人博客</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+    nav { background: #333; padding: 15px; }
+    nav a { color: white; text-decoration: none; margin: 0 15px; }
+    .hero { background: #f0f0f0; padding: 40px; text-align: center; margin: 20px 0; }
+    .posts { display: grid; gap: 30px; margin: 40px 0; }
+    .post { border: 1px solid #ddd; padding: 20px; border-radius: 5px; }
+    .stats { display: flex; gap: 30px; justify-content: center; margin: 40px 0; }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 2em; font-weight: bold; color: #0070f3; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">首页</a>
+    <a href="/login">登录</a>
+    <a href="/register">注册</a>
+    <a href="/write">写文章</a>
+  </nav>
 
-<style>
-  h1 {
-    color: #3366cc;
-    font-family: Arial, sans-serif;
-  }
-  main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-</style>
+  <div class="hero">
+    <h1>欢迎来到我的个人博客</h1>
+    <p>分享技术见解、生活感悟和学习经验，记录成长的每一步。</p>
+    <a href="/write" style="background:#0070f3;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;">
+      写文章
+    </a>
+  </div>
+
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-number">{stats.postsCount}</div>
+      <div>文章数量</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">{stats.categories}</div>
+      <div>分类</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">{stats.commentsCount}</div>
+      <div>评论数</div>
+    </div>
+  </div>
+
+  <h2>最新文章</h2>
+  <div class="posts">
+    {posts.map(post => (
+      <article class="post" key={post.id}>
+        <h3>{post.title}</h3>
+        <p>作者: {post.author} • 日期: {post.date} • 评论: {post.comments} • 分类: {post.category}</p>
+        <p>{post.excerpt}...</p>
+        <a href={`/post/${post.id}`}>阅读更多 →</a>
+      </article>
+    ))}
+  </div>
+
+  <footer style="text-align:center;margin-top:50px;padding:20px;border-top:1px solid #ddd;">
+    <p>© 2026 个人博客. 保留所有权利.</p>
+  </footer>
+</body>
+</html>
