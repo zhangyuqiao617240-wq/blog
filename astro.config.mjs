@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/serverless';
 
+// 改为静态网站
 export default defineConfig({
-  output: 'server',
-  adapter: vercel(),
+  output: 'static'
 });
